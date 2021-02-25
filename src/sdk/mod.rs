@@ -382,7 +382,7 @@ fn parse_sdk() -> HashMap<String, Peripheral> {
     peripherals
 }
 
-pub fn create_svd() {
+pub fn create_svd() -> ::svd_parser::Device {
     let mut peripherals = parse_sdk();
 
     // where available, the docs provide more detailed info
@@ -433,6 +433,5 @@ pub fn create_svd() {
     let mut svd = build_svd(ChipType::ESP8266, peripherals).unwrap();
     svd.address_unit_bits = Some(8);
 
-    let f = BufWriter::new(File::create("esp8266.svd").unwrap());
-    svd.encode().unwrap().write(f).unwrap();
+    svd
 }
